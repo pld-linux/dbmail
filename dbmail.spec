@@ -4,7 +4,7 @@ Summary:	Collection of programs for storing and retrieving mail from a SQL datab
 Name:		dbmail
 Version:	2.0
 %define _rc	rc5
-Release:	0.%{_rc}.3
+Release:	0.%{_rc}.4
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://dbmail.org/tgz/%{name}-%{version}%{_rc}.tgz
@@ -97,7 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README THANKS TODO EXTRAS BUGS INSTALL* sql
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/dbmail-*
 %{_libdir}/*.a
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*
 %{_mandir}/man1/dbmail-*
