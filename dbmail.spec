@@ -83,5 +83,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/*.a
 %dir %{_sysconfdir}/dbmail
-%attr(640,root,root) %{_sysconfdir}/dbmail/*
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/dbmail/*
 %{_mandir}/man1/*
