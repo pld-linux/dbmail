@@ -14,8 +14,8 @@ Group:		Networking/Daemons
 Source0:	http://dbmail.org/download/%{name}-%{version}.tgz
 # Source0-md5:	9499c25c977e44777364a9696d8b1b48
 URL:		http://www.dbman.org/
+BuildRequires:	autoconf
 BuildRequires:	postgresql-devel
-BuildRequires:	gcc-c++
 Requires:	postgresql
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -83,6 +83,7 @@ umieszczania listów w bazie DBMail.
 %setup -q
 
 %build
+%{__autoconf}
 %configure2_13 \
 	--with-pgsql
 %{__make}
