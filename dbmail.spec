@@ -70,7 +70,7 @@ Requires:	python-modules >= 2.2
 
 %description mailbox2dbmail
 Use this program to copy mail from an mbox file, maildir or mhdir
-directory to dbmail.  This program uses ./dbmail-smtp for injecting
+directory to dbmail. This program uses ./dbmail-smtp for injecting
 the emails into DBMail.
 
  %description mailbox2dbmail -l pl
@@ -94,8 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 
 install -D dbmail.conf $RPM_BUILD_ROOT%{_sysconfdir}/dbmail.conf
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
-cp man/*   $RPM_BUILD_ROOT%{_mandir}/man1
-install contrib/mailbox2dbmail/mailbox2dbmail   $RPM_BUILD_ROOT%{_bindir}
+cp man/* $RPM_BUILD_ROOT%{_mandir}/man1
+install contrib/mailbox2dbmail/mailbox2dbmail $RPM_BUILD_ROOT%{_bindir}
 install contrib/mailbox2dbmail/mailbox2dbmail.1 $RPM_BUILD_ROOT%{_mandir}/man1
 install dbmail-* $RPM_BUILD_ROOT%{_bindir}
 
