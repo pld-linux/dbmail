@@ -74,7 +74,7 @@ Use this program to copy mail from an mbox file, maildir or mhdir
 directory to dbmail. This program uses ./dbmail-smtp for injecting
 the emails into DBMail.
 
- %description mailbox2dbmail -l pl
+%description mailbox2dbmail -l pl
 Tego programu mo¿na u¿ywaæ do kopiowania poczty z pliku mbox albo
 katalogu maildir lub mhdir do dbmaila. U¿ywa on ./dbmail-smtp do
 umieszczania listów w bazie DBMail.
