@@ -62,6 +62,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+install -D dbmail.conf $RPM_BUILD_ROOT%{_sysconfdir}/dbmail/dbmail.conf
+install -d $RPM_BUILD_ROOT%{_mandir}/man1
+cp man/*   $RPM_BUILD_ROOT%{_mandir}/man1
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -78,3 +82,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README THANKS TODO EXTRAS BUGS INSTALL* sql
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/*.a
+%dir %{_sysconfdir}/dbmail
+%attr(640,root,root) %{_sysconfdir}/dbmail/*
+%{_mandir}/man1/*
