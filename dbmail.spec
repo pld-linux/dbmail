@@ -1,10 +1,15 @@
-# TODO: bcond for mysql
+# TODO:
+#   - bcond for mysql
+#   - add separate user/group
+#   - add subpackages and init / rc-inetd scripts
+#     for dbmail-{pop3,imap,lmtpd}
+#   - add cronjob for dbmail-maintenance
 Summary:	Collection of programs for storing and retrieving mail from a SQL database
 #Summary(pl):	
 Name:		dbmail
 Version:	2.0
 %define _rc	rc5
-Release:	0.%{_rc}.4
+Release:	0.%{_rc}.5
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://dbmail.org/tgz/%{name}-%{version}%{_rc}.tgz
@@ -46,6 +51,7 @@ Summary:	Copy mail from an mbox file, maildir or mhdir directory to dbmail
 #Summary(pl):	
 # FIXME: better group
 Group:		Applications/Mail
+Requires:	%{name} = %{version}
 Requires:	python-modules >= 2.2
 
 %description mailbox2dbmail
@@ -86,13 +92,15 @@ install contrib/mailbox2dbmail/mailbox2dbmail.1 $RPM_BUILD_ROOT%{_mandir}/man1
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%pre
-
 %post
-
-%preun
-
-%postun
+echo "    *****"
+echo "  Read /usr/share/doc/%{name}-%{version}-%{release}/INSTALL*"
+echo "  files, create database, configure /etc/dbmail.conf, the"
+echo "  SMTP server, and the cron job for dbmail-maintenance."
+echo
+echo "  This package doesn't provide any init scripts; you'll have"
+echo "  to deal with starting the appropiate daemons yourself."
+echo "    *****"
 
 %files
 %defattr(644,root,root,755)
