@@ -7,12 +7,12 @@
 Summary:	Collection of programs for storing and retrieving mail from a SQL database
 Summary(pl):	Zestaw programów do zapisywania i odtwarzania poczty z bazy danych SQL
 Name:		dbmail
-Version:	2.0.0
+Version:	2.0.1
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://dbmail.org/download/%{name}-%{version}.tgz
-# Source0-md5:	936307da839d2e26e9860af6ba67b983
+# Source0-md5:	9499c25c977e44777364a9696d8b1b48
 URL:		http://www.dbman.org/
 BuildRequires:	postgresql-devel
 Requires:	postgresql
