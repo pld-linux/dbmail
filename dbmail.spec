@@ -15,6 +15,7 @@ Source0:	http://dbmail.org/download/%{name}-%{version}.tgz
 # Source0-md5:	9499c25c977e44777364a9696d8b1b48
 URL:		http://www.dbman.org/
 BuildRequires:	postgresql-devel
+BuildRequires:	gcc-c++
 Requires:	postgresql
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
