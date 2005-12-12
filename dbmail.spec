@@ -47,19 +47,19 @@ poczty z bazy danych.
 Dlaczego jest to u¿yteczne? Dla autora jest z kilku powodów:
 - Umo¿liwia tworzenie skrzynek bez wymagania u¿ytkowników systemowych.
 - Poczta jest zapisywana bardziej wydajnie i mo¿e byæ umieszczana oraz
-  odtwarzana du¿o szybciej ni¿ w normalnych systemach (DBmail
-  aktualnie jest w stanie odczytywaæ oko³o 250 listów na sekundê).
+  odtwarzana du¿o szybciej ni¿ w normalnych systemach (DBmail aktualnie
+  jest w stanie odczytywaæ oko³o 250 listów na sekundê).
 - Jest bardziej rozszerzalne. Dostêp do bazy danych jest ³atwiejszy
   ni¿ do p³askiego pliku lub Maildira. Nie trzeba ich najpierw
   analizowaæ.
 - W przypadku autora - mo¿e on ³atwo pod³±czyæ skrzynkê do pewnego
-  klienta umo¿liwiaj±c utrzymywanie skrzynek przez klienta bez
-  potrzeby technicznego wsparcia administratora.
+  klienta umo¿liwiaj±c utrzymywanie skrzynek przez klienta bez potrzeby
+  technicznego wsparcia administratora.
 - Jest skalowalne. Mo¿na uruchamiaæ programy dbmail na ró¿nych
   serwerach komunikuj±cych siê z t± sam± baz± danych (klastrem).
 - Jest bardziej bezpieczne. Nie trzeba utrzymywaæ u¿ytkowników
-  systemowych ani pisaæ po systemie plików. Wszystkie jest wykonywane
-  w bazie danych.
+  systemowych ani pisaæ po systemie plików. Wszystkie jest wykonywane w
+  bazie danych.
 
 %package mailbox2dbmail
 Summary:	Copy mail from an mbox file, maildir or mhdir directory to dbmail
@@ -71,8 +71,8 @@ Requires:	python-modules >= 2.2
 
 %description mailbox2dbmail
 Use this program to copy mail from an mbox file, maildir or mhdir
-directory to dbmail. This program uses ./dbmail-smtp for injecting
-the emails into DBMail.
+directory to dbmail. This program uses ./dbmail-smtp for injecting the
+emails into DBMail.
 
 %description mailbox2dbmail -l pl
 Tego programu mo¿na u¿ywaæ do kopiowania poczty z pliku mbox albo
@@ -120,7 +120,7 @@ echo "    *****"
 %attr(755,root,root) %{_bindir}/dbmail-*
 # -devel? but headers?
 #%{_libdir}/*.a
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
 %{_mandir}/man1/dbmail-*
 
 %files mailbox2dbmail
