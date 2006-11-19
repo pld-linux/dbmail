@@ -1,3 +1,6 @@
+#
+%bcond_without	static_libs # don't build static libraries
+#
 # TODO:
 #   - bcond for mysql
 #   - add separate user/group
@@ -7,14 +10,17 @@
 Summary:	Collection of programs for storing and retrieving mail from a SQL database
 Summary(pl):	Zestaw programów do zapisywania i odtwarzania poczty z bazy danych SQL
 Name:		dbmail
-Version:	2.0.1
-Release:	1
+Version:	2.2.1
+Release:	0.1
 License:	GPL v2
 Group:		Networking/Daemons
-Source0:	http://dbmail.org/download/%{name}-%{version}.tgz
-# Source0-md5:	9499c25c977e44777364a9696d8b1b48
-URL:		http://www.dbman.org/
+Source0:	http://www.dbmail.org/download/2.2/%{name}-%{version}.tar.gz
+# Source0-md5:	0023c5b55bdd2856ed4ec44c729adfdd
+URL:		http://www.dbmail.org/
 BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	gmime-devel
+BuildRequires:	libtool
 BuildRequires:	postgresql-devel
 Requires:	postgresql
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -83,45 +89,56 @@ umieszczania listów w bazie DBMail.
 %setup -q
 
 %build
+%{__libtoolize}
+%{__aclocal}
 %{__autoconf}
-%configure2_13 \
-	--with-pgsql
+%{__autoheader}
+%{__automake}
+%configure \
+	--enable-static=%{?with_static_libs:yes}%{!?with_static_libs:no} \
+	--with-mysql \
+	--with-pgsql \
+	--with-sqlite \
+	--with-auth-ldap \
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_bindir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -D dbmail.conf $RPM_BUILD_ROOT%{_sysconfdir}/dbmail.conf
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
-cp man/* $RPM_BUILD_ROOT%{_mandir}/man1
+install dbmail.conf $RPM_BUILD_ROOT%{_sysconfdir}
 install contrib/mailbox2dbmail/mailbox2dbmail $RPM_BUILD_ROOT%{_bindir}
 install contrib/mailbox2dbmail/mailbox2dbmail.1 $RPM_BUILD_ROOT%{_mandir}/man1
-install dbmail-* $RPM_BUILD_ROOT%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-echo "    *****"
-echo "  Read /usr/share/doc/%{name}-%{version}-%{release}/INSTALL*"
-echo "  files, create database, configure /etc/dbmail.conf, the"
-echo "  SMTP server, and the cron job for dbmail-maintenance."
-echo
-echo "  This package doesn't provide any init scripts; you'll have"
-echo "  to deal with starting the appropiate daemons yourself."
-echo "    *****"
+%banner %{name} << EOF
+Read /usr/share/doc/%{name}-%{version}/*
+files, create database, configure /etc/dbmail.conf, the
+SMTP server, and the cron job for dbmail-maintenance.
+This package doesn't provide any init scripts; you'll have
+to deal with starting the appropiate daemons yourself.
+EOF
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README THANKS TODO EXTRAS BUGS INSTALL* sql
-%attr(755,root,root) %{_bindir}/dbmail-*
+%doc AUTHORS BUGS ChangeLog README* THANKS sql
+%attr(755,root,root) %{_sbindir}/dbmail-*
+%dir %{_libdir}/%{name}
+%attr(755,root,root) %{_libdir}/%{name}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/%{name}/lib*.so.*
+%attr(755,root,root) %{_libdir}/%{name}/lib*.so
+%{_libdir}/%{name}/lib*.la
 # -devel? but headers?
 #%{_libdir}/*.a
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
-%{_mandir}/man1/dbmail-*
+%{_mandir}/man[158]/dbmail*
 
 %files mailbox2dbmail
 %defattr(644,root,root,755)
