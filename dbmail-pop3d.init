@@ -1,0 +1,88 @@
+#!/bin/sh
+#
+# dbmail-pop3d	provides access to the DBMail system to client supporting Post Office Protocol, POP3	
+#
+# chkconfig:	345 99 99
+#
+# description:	provides access to the DBMail system to client supporting \
+#				Post Office Protocol, POP3, as specified in RFC 1939.
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config - may override defaults
+[ -f /etc/sysconfig/dbmail ] && . /etc/sysconfig/dbmail-pop3d
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network -a "$1" != stop -a "$1" != status ]; then
+		msg_network_down dbmail-pop3d
+		exit 1
+	fi
+else
+	exit 0
+fi
+
+# See how we were called.
+case "$1" in
+  start)
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/dbmail-pop3d ]; then
+		msg_starting dbmail-pop3d
+		daemon dbmail-pop3d
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/dbmail-pop3d
+	else
+		msg_already_running dbmail-pop3d
+	fi
+	;;
+  stop)
+	if [ -f /var/lock/subsys/dbmail ]; then
+		# Stop daemons.
+		msg_stopping dbmail-pop3d
+		killproc dbmail-pop3d
+		rm -f /var/lock/subsys/dbmail-pop3d
+	else
+		msg_not_running dbmail-pop3d
+	fi
+	;;
+  restart)
+	$0 stop
+	$0 start
+	exit $?
+	;;
+  reload)
+	if [ -f /var/lock/subsys/dbmail-pop3d ]; then
+		msg_reloading dbmail-pop3d
+		killproc dbmail -HUP
+		RETVAL=$?
+	else
+		msg_not_running dbmail-pop3d >&2
+		RETVAL=7
+	fi
+	;;
+  force-reload)
+	# if program allows reloading without stopping
+	$0 reload
+
+	# or if it doesn't
+	$0 restart
+
+	exit $?
+	;;
+  status)
+	status dbmail-pop3d
+	RETVAL=$?
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL
+
+# This must be last line !
+# vi:syntax=sh

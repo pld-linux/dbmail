@@ -1,0 +1,88 @@
+#!/bin/sh
+#
+# dbmail-lmtpd	receive messages from an MTA supporting the Lightweight Mail Transport Protocol
+#
+# chkconfig:	345 99 99
+#
+# description:	receive messages from an MTA supporting the Lightweight Mail Transport Protocol,\
+#				as specified in RFC 2033.
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config - may override defaults
+[ -f /etc/sysconfig/dbmail ] && . /etc/sysconfig/dbmail-lmtpd
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network -a "$1" != stop -a "$1" != status ]; then
+		msg_network_down dbmail-lmtpd
+		exit 1
+	fi
+else
+	exit 0
+fi
+
+# See how we were called.
+case "$1" in
+  start)
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/dbmail-lmtpd ]; then
+		msg_starting dbmail-lmtpd
+		daemon dbmail-lmtpd
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/dbmail-lmtpd
+	else
+		msg_already_running dbmail-lmtpd
+	fi
+	;;
+  stop)
+	if [ -f /var/lock/subsys/dbmail ]; then
+		# Stop daemons.
+		msg_stopping dbmail-lmtpd
+		killproc dbmail-lmtpd
+		rm -f /var/lock/subsys/dbmail-lmtpd
+	else
+		msg_not_running dbmail-lmtpd
+	fi
+	;;
+  restart)
+	$0 stop
+	$0 start
+	exit $?
+	;;
+  reload)
+	if [ -f /var/lock/subsys/dbmail-lmtpd ]; then
+		msg_reloading dbmail-lmtpd
+		killproc dbmail -HUP
+		RETVAL=$?
+	else
+		msg_not_running dbmail-lmtpd >&2
+		RETVAL=7
+	fi
+	;;
+  force-reload)
+	# if program allows reloading without stopping
+	$0 reload
+
+	# or if it doesn't
+	$0 restart
+
+	exit $?
+	;;
+  status)
+	status dbmail-lmtpd
+	RETVAL=$?
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL
+
+# This must be last line !
+# vi:syntax=sh

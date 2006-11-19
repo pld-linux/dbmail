@@ -1,0 +1,89 @@
+#!/bin/sh
+#
+# dbmail-imapd	provides access to the DBMail system to clients supporting Internet Message Access Protocol, IMAP4r1
+#
+# chkconfig:	345 99 99
+#
+# description:	provides access to the DBMail system to clients supporting \
+#				Internet Message Access Protocol, IMAP4r1, as specified in \
+#				RFC 3501.
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config - may override defaults
+[ -f /etc/sysconfig/dbmail ] && . /etc/sysconfig/dbmail-imapd
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network -a "$1" != stop -a "$1" != status ]; then
+		msg_network_down dbmail-imapd
+		exit 1
+	fi
+else
+	exit 0
+fi
+
+# See how we were called.
+case "$1" in
+  start)
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/dbmail-imapd ]; then
+		msg_starting dbmail-imapd
+		daemon dbmail-imapd
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/dbmail-imapd
+	else
+		msg_already_running dbmail-imapd
+	fi
+	;;
+  stop)
+	if [ -f /var/lock/subsys/dbmail ]; then
+		# Stop daemons.
+		msg_stopping dbmail-imapd
+		killproc dbmail-imapd
+		rm -f /var/lock/subsys/dbmail-imapd
+	else
+		msg_not_running dbmail-imapd
+	fi
+	;;
+  restart)
+	$0 stop
+	$0 start
+	exit $?
+	;;
+  reload)
+	if [ -f /var/lock/subsys/dbmail-imapd ]; then
+		msg_reloading dbmail-imapd
+		killproc dbmail -HUP
+		RETVAL=$?
+	else
+		msg_not_running dbmail-imapd >&2
+		RETVAL=7
+	fi
+	;;
+  force-reload)
+	# if program allows reloading without stopping
+	$0 reload
+
+	# or if it doesn't
+	$0 restart
+
+	exit $?
+	;;
+  status)
+	status dbmail-imapd
+	RETVAL=$?
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL
+
+# This must be last line !
+# vi:syntax=sh
