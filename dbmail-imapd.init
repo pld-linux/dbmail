@@ -27,9 +27,7 @@ else
 	exit 0
 fi
 
-# See how we were called.
-case "$1" in
-  start)
+start() {
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/dbmail-imapd ]; then
 		msg_starting dbmail-imapd
@@ -39,8 +37,9 @@ case "$1" in
 	else
 		msg_already_running dbmail-imapd
 	fi
-	;;
-  stop)
+}
+
+stop() {
 	if [ -f /var/lock/subsys/dbmail ]; then
 		# Stop daemons.
 		msg_stopping dbmail-imapd
@@ -49,11 +48,19 @@ case "$1" in
 	else
 		msg_not_running dbmail-imapd
 	fi
+}
+
+# See how we were called.
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
 	;;
   restart)
-	$0 stop
-	$0 start
-	exit $?
+	stop
+	start
 	;;
   reload)
 	if [ -f /var/lock/subsys/dbmail-imapd ]; then
@@ -61,11 +68,13 @@ case "$1" in
 		killproc dbmail -HUP
 		RETVAL=$?
 	else
-		msg_not_running dbmail-imapd >&2
+		msg_not_running dbmail-imapd
 		RETVAL=7
 	fi
 	;;
   force-reload)
+  # FIXME: choose one!!!!
+
 	# if program allows reloading without stopping
 	$0 reload
 
@@ -84,6 +93,3 @@ case "$1" in
 esac
 
 exit $RETVAL
-
-# This must be last line !
-# vi:syntax=sh
