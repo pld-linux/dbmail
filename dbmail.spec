@@ -2,11 +2,11 @@
 %bcond_without	static_libs # don't build static libraries
 #
 # TODO:
-#   - bcond for mysql
 #   - add separate user/group
 #   - add subpackages and init / rc-inetd scripts
 #     for dbmail-{pop3,imap,lmtpd}
 #   - add cronjob for dbmail-maintenance
+#   - review of %{_libdir} content - I'm not sure which files are really needed (I've packed all)
 Summary:	Collection of programs for storing and retrieving mail from a SQL database
 Summary(pl):	Zestaw programów do zapisywania i odtwarzania poczty z bazy danych SQL
 Name:		dbmail
@@ -21,8 +21,10 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gmime-devel
 BuildRequires:	libtool
+BuildRequires:	mysql-devel
+BuildRequires:	openldap-devel
 BuildRequires:	postgresql-devel
-Requires:	postgresql
+BuildRequires:	sqlite3-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
