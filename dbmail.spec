@@ -12,7 +12,7 @@
 #	- add bconds for database backends
 #
 Summary:	Collection of programs for storing and retrieving mail from a SQL database
-Summary(pl):	Zestaw programów do zapisywania i odtwarzania poczty z bazy danych SQL
+Summary(pl.UTF-8):   Zestaw programÃ³w do zapisywania i odtwarzania poczty z bazy danych SQL
 Name:		dbmail
 Version:	2.2.1
 Release:	0.1
@@ -57,25 +57,25 @@ because a number of reasons.
 - It is more secure. There's no need to maintain system users or write
   to the filesystem. All this is done through the database.
 
-%description -l pl
-DBMAIL to zestaw programów umo¿liwiaj±cych zapisywanie i odtwarzanie
+%description -l pl.UTF-8
+DBMAIL to zestaw programÃ³w umoÅ¼liwiajÄ…cych zapisywanie i odtwarzanie
 poczty z bazy danych.
 
-Dlaczego jest to u¿yteczne? Dla autora jest z kilku powodów:
-- Umo¿liwia tworzenie skrzynek bez wymagania u¿ytkowników systemowych.
-- Poczta jest zapisywana bardziej wydajnie i mo¿e byæ umieszczana oraz
-  odtwarzana du¿o szybciej ni¿ w normalnych systemach (DBmail aktualnie
-  jest w stanie odczytywaæ oko³o 250 listów na sekundê).
-- Jest bardziej rozszerzalne. Dostêp do bazy danych jest ³atwiejszy
-  ni¿ do p³askiego pliku lub Maildira. Nie trzeba ich najpierw
-  analizowaæ.
-- W przypadku autora - mo¿e on ³atwo pod³±czyæ skrzynkê do pewnego
-  klienta umo¿liwiaj±c utrzymywanie skrzynek przez klienta bez potrzeby
+Dlaczego jest to uÅ¼yteczne? Dla autora jest z kilku powodÃ³w:
+- UmoÅ¼liwia tworzenie skrzynek bez wymagania uÅ¼ytkownikÃ³w systemowych.
+- Poczta jest zapisywana bardziej wydajnie i moÅ¼e byÄ‡ umieszczana oraz
+  odtwarzana duÅ¼o szybciej niÅ¼ w normalnych systemach (DBmail aktualnie
+  jest w stanie odczytywaÄ‡ okoÅ‚o 250 listÃ³w na sekundÄ™).
+- Jest bardziej rozszerzalne. DostÄ™p do bazy danych jest Å‚atwiejszy
+  niÅ¼ do pÅ‚askiego pliku lub Maildira. Nie trzeba ich najpierw
+  analizowaÄ‡.
+- W przypadku autora - moÅ¼e on Å‚atwo podÅ‚Ä…czyÄ‡ skrzynkÄ™ do pewnego
+  klienta umoÅ¼liwiajÄ…c utrzymywanie skrzynek przez klienta bez potrzeby
   technicznego wsparcia administratora.
-- Jest skalowalne. Mo¿na uruchamiaæ programy dbmail na ró¿nych
-  serwerach komunikuj±cych siê z t± sam± baz± danych (klastrem).
-- Jest bardziej bezpieczne. Nie trzeba utrzymywaæ u¿ytkowników
-  systemowych ani pisaæ po systemie plików. Wszystkie jest wykonywane w
+- Jest skalowalne. MoÅ¼na uruchamiaÄ‡ programy dbmail na rÃ³Å¼nych
+  serwerach komunikujÄ…cych siÄ™ z tÄ… samÄ… bazÄ… danych (klastrem).
+- Jest bardziej bezpieczne. Nie trzeba utrzymywaÄ‡ uÅ¼ytkownikÃ³w
+  systemowych ani pisaÄ‡ po systemie plikÃ³w. Wszystkie jest wykonywane w
   bazie danych.
 
 %package imapd
@@ -123,7 +123,7 @@ ing Post Office Protocol, POP3, as specified in RFC 1939.
 
 %package mailbox2dbmail
 Summary:	Copy mail from an mbox file, maildir or mhdir directory to dbmail
-Summary(pl):	Kopiowanie poczty z pliku mbox, katalogu maildir lub mhdir do dbmaila
+Summary(pl.UTF-8):   Kopiowanie poczty z pliku mbox, katalogu maildir lub mhdir do dbmaila
 # FIXME: better group
 Group:		Applications/Mail
 Requires:	%{name} = %{version}-%{release}
@@ -134,10 +134,10 @@ Use this program to copy mail from an mbox file, maildir or mhdir
 directory to dbmail. This program uses ./dbmail-smtp for injecting the
 emails into DBMail.
 
-%description mailbox2dbmail -l pl
-Tego programu mo¿na u¿ywaæ do kopiowania poczty z pliku mbox albo
-katalogu maildir lub mhdir do dbmaila. U¿ywa on ./dbmail-smtp do
-umieszczania listów w bazie DBMail.
+%description mailbox2dbmail -l pl.UTF-8
+Tego programu moÅ¼na uÅ¼ywaÄ‡ do kopiowania poczty z pliku mbox albo
+katalogu maildir lub mhdir do dbmaila. UÅ¼ywa on ./dbmail-smtp do
+umieszczania listÃ³w w bazie DBMail.
 
 %prep
 %setup -q
