@@ -5,7 +5,7 @@
 #     for dbmail-{pop3,imap,lmtpd}
 #   - add cronjob for dbmail-maintenance
 Summary:	Collection of programs for storing and retrieving mail from a SQL database
-Summary(pl.UTF-8):   Zestaw programów do zapisywania i odtwarzania poczty z bazy danych SQL
+Summary(pl.UTF-8):	Zestaw programów do zapisywania i odtwarzania poczty z bazy danych SQL
 Name:		dbmail
 Version:	2.0.1
 Release:	1
@@ -63,7 +63,7 @@ Dlaczego jest to użyteczne? Dla autora jest z kilku powodów:
 
 %package mailbox2dbmail
 Summary:	Copy mail from an mbox file, maildir or mhdir directory to dbmail
-Summary(pl.UTF-8):   Kopiowanie poczty z pliku mbox, katalogu maildir lub mhdir do dbmaila
+Summary(pl.UTF-8):	Kopiowanie poczty z pliku mbox, katalogu maildir lub mhdir do dbmaila
 # FIXME: better group
 Group:		Applications/Mail
 Requires:	%{name} = %{version}-%{release}
