@@ -14,12 +14,12 @@
 Summary:	Collection of programs for storing and retrieving mail from a SQL database
 Summary(pl.UTF-8):   Zestaw programów do zapisywania i odtwarzania poczty z bazy danych SQL
 Name:		dbmail
-Version:	2.2.1
+Version:	2.2.3
 Release:	0.1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://www.dbmail.org/download/2.2/%{name}-%{version}.tar.gz
-# Source0-md5:	0023c5b55bdd2856ed4ec44c729adfdd
+# Source0-md5:	495c1ed9cc5645f2d4f2ff8aa7b389e7
 Source1:	%{name}-imapd.init
 Source2:	%{name}-lmtpd.init
 Source3:	%{name}-pop3d.init
