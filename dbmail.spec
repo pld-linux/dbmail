@@ -1,6 +1,4 @@
 #
-%bcond_without	static_libs # don't build static libraries
-#
 # TODO:
 #	- add separate user/group
 #	- add subpackages and init / rc-inetd scripts
@@ -14,12 +12,12 @@
 Summary:	Collection of programs for storing and retrieving mail from a SQL database
 Summary(pl.UTF-8):   Zestaw programów do zapisywania i odtwarzania poczty z bazy danych SQL
 Name:		dbmail
-Version:	2.2.3
+Version:	2.2.4
 Release:	0.1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://www.dbmail.org/download/2.2/%{name}-%{version}.tar.gz
-# Source0-md5:	495c1ed9cc5645f2d4f2ff8aa7b389e7
+# Source0-md5:	b7f56437df764e7046438f81f4b7df18
 Source1:	%{name}-imapd.init
 Source2:	%{name}-lmtpd.init
 Source3:	%{name}-pop3d.init
@@ -149,7 +147,7 @@ umieszczania listów w bazie DBMail.
 %{__autoheader}
 %{__automake}
 %configure \
-	--enable-static=%{?with_static_libs:yes}%{!?with_static_libs:no} \
+	--enable-shared=yes \
 	--with-mysql \
 	--with-pgsql \
 	--with-sqlite \
